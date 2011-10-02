@@ -1,9 +1,7 @@
 author: King Rat, NeonMaster, rymate1234
-database: false
 description: Bananasahararabaranasarah
-generator: http://dinnerbone.com/minecraft/tools/pluginator/
 main: de.bananaco.bananasahara.BananaSahara
 name: BananaSahara
-startup: postworld
+load: startup
 url: http://bananaco.de/
-version: '1.0'
+version: '0.1'
