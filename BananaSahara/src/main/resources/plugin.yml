@@ -1,0 +1,9 @@
+author: King Rat, NeonMaster, rymate1234
+database: false
+description: Bananasahararabaranasarah
+generator: http://dinnerbone.com/minecraft/tools/pluginator/
+main: de.bananaco.bananasahara.BananaSahara
+name: BananaSahara
+startup: postworld
+url: http://bananaco.de/
+version: '1.0'
