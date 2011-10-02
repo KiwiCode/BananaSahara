@@ -15,8 +15,10 @@ public class BananaSahara extends JavaPlugin {
 	public void onEnable() {
 		System.out.println("Hold on to your knickers, " + this
 				+ " is now enabled!");
-		if (getServer().getWorld("test") == null)
-			getServer().createWorld("test", Environment.NORMAL, new MainGenerator());
+		
+		// Just for testing
+		if (getServer().getWorld("testworld") == null)
+			getServer().createWorld("testworld", Environment.NORMAL, new MainGenerator());
 	}
 
 	@Override
