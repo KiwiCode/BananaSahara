@@ -21,7 +21,7 @@ public class MotherPopulator extends BlockPopulator {
 
 	public MotherPopulator() {
 		list = new BlockPopulator[] {
-
+                    new ShrubPopulator()
 		};
 	}
 }
