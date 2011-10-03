@@ -1,14 +1,19 @@
 package de.bananaco.bananasahara.generator;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.util.noise.SimplexOctaveGenerator;
 
-public class MainGenerator extends ChunkGenerator {
+import de.bananaco.bananasahara.populator.MotherPopulator;
 
+public class MainGenerator extends ChunkGenerator {
+	
 	@Override
 	public byte[] generate(World world, Random random, int chunkX, int chunkZ) {
 
@@ -24,20 +29,25 @@ public class MainGenerator extends ChunkGenerator {
 					b[xyzToByte(x, y, z)] = bedrock;
 				for (int y = 1; y < 54; y++)
 					b[xyzToByte(x, y, z)] = stone;
-				double noise = g.noise(x + chunkX * 16, z + chunkZ * 16, 0.7, 0.85) * 16;
+				double noise = g.noise(x + chunkX * 16, z + chunkZ * 16, 0.75, 0.85) * 16;
 				for (int y = 54; y < 60 + noise; y++)
 					b[xyzToByte(x, y, z)] = sand;
-				for (int y = 50; y < (56 + (noise / 4)); y++)
+				for (int y = 50; y < (57 + (noise / 2)); y++)
 					b[xyzToByte(x, y, z)] = sandstone;
-				for (int y = 50; y < (56 + (noise / 2)); y++)
+				for (int y = 50; y < (56 + (noise / 4)); y++)
 					b[xyzToByte(x, y, z)] = stone;
 				for (int y = 50; y < 62; y++) {
 					if (b[xyzToByte(x, y, z)] == 0)
-						b[xyzToByte(x, y, z)] = water;
+						b[xyzToByte(x, y, z)] = lava;
 				}
 			}
 		}
 		return b;
+	}
+	
+	@Override
+	public List<BlockPopulator> getDefaultPopulators(World world) {
+		return Arrays.<BlockPopulator> asList(new MotherPopulator());
 	}
 
 	@Override
@@ -59,5 +69,6 @@ public class MainGenerator extends ChunkGenerator {
 	byte sand = (byte) Material.SAND.getId();
 	byte sandstone = (byte) Material.SANDSTONE.getId();
 	byte water = (byte) Material.STATIONARY_WATER.getId();
+	byte lava = (byte) Material.STATIONARY_LAVA.getId();
 
 }
