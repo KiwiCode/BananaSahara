@@ -2,6 +2,6 @@ author: King Rat, NeonMaster, rymate1234
 description: Bananasahararabaranasarah
 main: de.bananaco.bananasahara.BananaSahara
 name: BananaSahara
-load: startup
+startup: postworld
 url: http://bananaco.de/
 version: '0.1'
