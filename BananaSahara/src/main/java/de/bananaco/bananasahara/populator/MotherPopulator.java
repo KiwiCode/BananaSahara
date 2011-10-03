@@ -24,6 +24,7 @@ public class MotherPopulator extends BlockPopulator {
 		list = new BlockPopulator[] {
                     new ShrubPopulator()
                     new CactusPopulator()
+                    new OrePopulator()
 		};
 	}
 }
