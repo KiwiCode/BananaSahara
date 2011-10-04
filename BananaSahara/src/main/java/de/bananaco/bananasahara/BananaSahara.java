@@ -25,4 +25,5 @@ public class BananaSahara extends JavaPlugin {
 	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
 		return new MainGenerator();
 	}
+
 }

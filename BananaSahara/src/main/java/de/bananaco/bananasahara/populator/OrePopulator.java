@@ -1,7 +1,6 @@
 package de.bananaco.bananasahara.populator;
 
 import java.util.Random;
-
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -9,30 +8,52 @@ import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
 
 /**
+ * Populates the world with ores.
  * 
- * @author King Rat
+ * @author Nightgunner5
+ * @author Markus Persson
+ * @author iffa
  */
 
 public class OrePopulator extends BlockPopulator {
+	// Variables
+	private static final int[] iterations = new int[] {
+			10, 20, 20, 2, 8, 1, 1, 1 };
 
+	private static final int[] amount = new int[] {
+			32, 16, 8, 8, 7, 7, 6 };
+
+	private static final int[] type = new int[] {
+			Material.GRAVEL.getId(), Material.COAL_ORE.getId(), Material.IRON_ORE.getId(), Material.GOLD_ORE.getId(), Material.REDSTONE_ORE.getId(), Material.DIAMOND_ORE.getId(),
+			Material.LAPIS_ORE.getId() };
+
+	private static final int[] maxHeight = new int[] {
+			128, 128, 76, 48, 64, 24, 32, 16, 16, 16 };
+	
+	private static final int STONE = Material.STONE.getId();
+
+	@Override
 	public void populate(World world, Random random, Chunk source) {
+		for (int i = 0; i < type.length; i++) {
+			for (int j = 0; j < iterations[i]; j++) {
+				internal(source, random, random.nextInt(16), random.nextInt(maxHeight[i]), random.nextInt(16), amount[i], type[i]);
+			}
+		}
+	}
 
-		int[] chance = { 90, 50, 30, 30, 25, 25, 10 };
-		int[] maxSize = { 32, 10, 16, 12, 8, 8, 8 };
-		int[] maxHeight = { 56, 48, 30, 30, 25, 20, 16 };
-		Material[] oreType = { Material.COAL_ORE, Material.IRON_ORE, Material.SOUL_SAND, Material.GOLD_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.DIAMOND_ORE };
-
-		for (int i = 0; i < oreType.length; i++) {
-			if (random.nextInt(100) < chance[i]) {
-				int x = random.nextInt(16);
-				int z = random.nextInt(16);
-				int y = random.nextInt(maxHeight[i] - 6) + 6;
-				Block block = world.getBlockAt(x, y, z);
-				block.setType(oreType[i]);
-				for (int j = 0; j < maxSize[i]; i++) {
-					block = world.getBlockAt(x + j, y, z);
-					block.setType(oreType[i]);
-				}
+	private static void internal(Chunk source, Random random, int originX, int originY, int originZ, int amount, int type) {
+		for (int i = 0; i < amount; i++) {
+			int x = originX + random.nextInt(amount / 2) - amount / 4;
+			int y = originY + random.nextInt(amount / 4) - amount / 8;
+			int z = originZ + random.nextInt(amount / 2) - amount / 4;
+			x &= 0xf;
+			z &= 0xf;
+			if (y > 127 || y < 0) {
+				continue;
+			}
+			Block block = source.getBlock(x, y, z);
+			if (block.getTypeId() == STONE) {
+				block.setTypeId(type, false);
 			}
 		}
 	}
